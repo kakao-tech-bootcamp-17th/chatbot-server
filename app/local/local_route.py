@@ -1,15 +1,7 @@
 from flask import Blueprint, request, jsonify
-from app.local.api_client import LocalApiClient
+from app.local.local_service import LocalService
 
 local_bp = Blueprint('local', __name__)
-
-class LocalService:
-    def __init__(self, api_client=None):
-        self.api_client = api_client if api_client else LocalApiClient()
-
-    def get_coordinates(self, location_name):
-        return self.api_client.get_coordinates(location_name)
-
 local_service = LocalService()
 
 @local_bp.route("/", methods=['GET'])

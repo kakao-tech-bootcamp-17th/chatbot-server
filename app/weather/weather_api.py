@@ -1,7 +1,7 @@
 import os
 import requests
 
-class WeatherApiClient:
+class OpenWeatherApiClient:
     def __init__(self):
         self.openweather_api_key = os.getenv("OPENWEATHER_API_KEY")
         if not self.openweather_api_key:

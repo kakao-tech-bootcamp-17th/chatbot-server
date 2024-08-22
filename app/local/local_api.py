@@ -1,7 +1,7 @@
 import os
 import requests
 
-class LocalApiClient:
+class KakaoLocalApiClient:
     def __init__(self):
         self.kakao_api_key = os.getenv("KAKAO_APP_API_KEY")
         if not self.kakao_api_key:

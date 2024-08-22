@@ -1,16 +1,8 @@
 from flask import Blueprint, request, jsonify
-from app.weather.api_client import WeatherApiClient
+from app.weather.weather_service import WeatherService
 import requests
 
 weather_bp = Blueprint('weather', __name__)
-
-class WeatherService:
-    def __init__(self, weather_api_client=None):
-        self.weather_api_client = weather_api_client if weather_api_client else WeatherApiClient()
-
-    def get_weather_info(self, lat, lon):
-        return self.weather_api_client.get_weather(lat, lon)
-
 weather_service = WeatherService()
 
 @weather_bp.route("/", methods=['GET'])
