@@ -1,6 +1,8 @@
 import requests
 from flask import current_app
 
+KAKAO_LOCAL_REQUEST_URL = "https://dapi.kakao.com/v2/local/search/keyword.json"
+
 class LocalService:
     _instance = None
 
@@ -23,7 +25,7 @@ class LocalService:
         }
 
         try:
-            response = requests.get("https://dapi.kakao.com/v2/local/search/keyword.json", headers=headers, params=params)
+            response = requests.get(url=KAKAO_LOCAL_REQUEST_URL, headers=headers, params=params)
             response.raise_for_status()
 
             result = response.json()
