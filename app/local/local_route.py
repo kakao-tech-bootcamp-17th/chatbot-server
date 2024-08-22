@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from app.local.local_service import LocalService
+from . import local_bp
 
 local_bp = Blueprint('local', __name__)
 local_service = LocalService()
