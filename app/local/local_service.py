@@ -29,12 +29,15 @@ class LocalService:
             response.raise_for_status()
 
             result = response.json()
-            if result['documents']:
-                lon = float(result['documents'][0]['x'])
-                lat = float(result['documents'][0]['y'])
-                return lat, lon
-            else:
+
+            if not result['documents']:
                 raise ValueError(f"No coordinates found for address: {address}")
+            
+            lon = float(result['documents'][0]['x'])
+            lat = float(result['documents'][0]['y'])
+        
+            return lat, lon
+        
         except requests.exceptions.RequestException as e:
             print(f"Request failed: {e}")
             raise
