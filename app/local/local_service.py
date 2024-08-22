@@ -1,8 +1,39 @@
-from app.local.local_api import KakaoLocalApiClient
+import requests
+from flask import current_app
 
 class LocalService:
-    def __init__(self, api_client=None):
-        self.api_client = api_client if api_client else KakaoLocalApiClient()
+    _instance = None
 
-    def get_coordinates(self, location_name):
-        return self.api_client.get_coordinates(location_name)
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = super(LocalService, cls).__new__(cls, *args, **kwargs)
+        return cls._instance
+    
+    def __init__(self):
+        self.kakao_api_key = current_app.config.get("KAKAO_APP_API_KEY")
+        if not self.kakao_api_key:
+            raise ValueError("KAKAO_APP_API_KEY is not set in environment variables")
+
+    def get_coordinates(self, address):
+        headers = {
+            "Authorization": f"KakaoAK {self.kakao_api_key}"
+        }
+        params = {
+            "query": address
+        }
+
+        try:
+            response = requests.get("https://dapi.kakao.com/v2/local/search/keyword.json", headers=headers, params=params)
+            response.raise_for_status()
+
+            result = response.json()
+            if result['documents']:
+                lon = float(result['documents'][0]['x'])
+                lat = float(result['documents'][0]['y'])
+                return lat, lon
+            else:
+                raise ValueError(f"No coordinates found for address: {address}")
+        except requests.exceptions.RequestException as e:
+            print(f"Request failed: {e}")
+            raise
+
