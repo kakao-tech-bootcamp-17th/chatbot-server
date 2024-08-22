@@ -1,5 +1,6 @@
 import requests
 from flask import current_app
+from app.exception.not_found_exception import NotFoundException
 
 KAKAO_LOCAL_REQUEST_URL = "https://dapi.kakao.com/v2/local/search/keyword.json"
 
@@ -18,27 +19,24 @@ class LocalService:
 
     def get_coordinates(self, address):
         headers = {
-            "Authorization": f"KakaoAK {self.kakao_api_key}"
+            "Authorization": f"KakaoAK {self.kakao_api_key}asf"
         }
         params = {
             "query": address
         }
 
-        try:
-            response = requests.get(url=KAKAO_LOCAL_REQUEST_URL, headers=headers, params=params)
-            response.raise_for_status()
+    
+        response = requests.get(url=KAKAO_LOCAL_REQUEST_URL, headers=headers, params=params)
+        response.raise_for_status()
 
-            result = response.json()
+        result = response.json()
 
-            if not result['documents']:
-                raise ValueError(f"No coordinates found for address: {address}")
-            
-            lon = float(result['documents'][0]['x'])
-            lat = float(result['documents'][0]['y'])
+        print(result)
+        if not result['documents']:
+            raise NotFoundException(f"{address}는 존재하지 않는 주소지입니다.")
         
-            return lat, lon
-        
-        except requests.exceptions.RequestException as e:
-            print(f"Request failed: {e}")
-            raise
-
+        lon = float(result['documents'][0]['x'])
+        lat = float(result['documents'][0]['y'])
+    
+        return lat, lon
+  

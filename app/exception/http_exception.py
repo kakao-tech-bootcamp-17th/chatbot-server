@@ -3,3 +3,4 @@ class HttpException(Exception):
         self.code = code
         self.title = title
         self.description = description
+        super().__init__(description)
