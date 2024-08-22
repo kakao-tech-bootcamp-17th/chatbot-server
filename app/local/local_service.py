@@ -1,4 +1,4 @@
-from app.local.loacal_api import KakaoLocalApiClient
+from app.local.local_api import KakaoLocalApiClient
 
 class LocalService:
     def __init__(self, api_client=None):
