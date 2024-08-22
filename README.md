@@ -1,23 +1,23 @@
 # chatbot-server
-Ä«Ä«¿À Ãªº¿À» ÅëÇÑ ¿äÃ»À» ÀÀ´äÇÏ´Â flask REST APIÀÔ´Ï´Ù.
+ì¹´ì¹´ì˜¤ ì±—ë´‡ì„ í†µí•œ ìš”ì²­ì„ ì‘ë‹µí•˜ëŠ” flask REST APIìž…ë‹ˆë‹¤.
 
-## ÇÊ¼ö ÆÐÅ°Áö
+## í•„ìˆ˜ íŒ¨í‚¤ì§€
 
-ÀÌ ÇÁ·ÎÁ§Æ®´Â Æ¯Á¤ Python ÆÐÅ°Áö¿¡ ÀÇÁ¸ÇÕ´Ï´Ù. ÆÐÅ°Áö ÀÇÁ¸¼ºÀ» °ü¸®ÇÏ±â À§ÇØ `requirements.txt` ÆÄÀÏÀ» »ç¿ëÇÏ°í ÀÖ½À´Ï´Ù.
+ì´ í”„ë¡œì íŠ¸ëŠ” íŠ¹ì • Python íŒ¨í‚¤ì§€ì— ì˜ì¡´í•©ë‹ˆë‹¤. íŒ¨í‚¤ì§€ ì˜ì¡´ì„±ì„ ê´€ë¦¬í•˜ê¸° ìœ„í•´ `requirements.txt` íŒŒì¼ì„ ì‚¬ìš©í•˜ê³  ìžˆìŠµë‹ˆë‹¤.
 
-## °¡»ó È¯°æ ¼³Á¤
+## ê°€ìƒ í™˜ê²½ ì„¤ì •
 
-ÇÁ·ÎÁ§Æ®ÀÇ ÆÐÅ°Áö¿Í ÀÇÁ¸¼ºÀ» µ¶¸³ÀûÀ¸·Î °ü¸®ÇÏ±â À§ÇØ °¡»ó È¯°æÀ» »ç¿ëÇÏ´Â °ÍÀÌ ÁÁ½À´Ï´Ù. °¡»ó È¯°æÀ» »ý¼ºÇÏ°í È°¼ºÈ­ÇÏ´Â ¹æ¹ýÀº ´ÙÀ½°ú °°½À´Ï´Ù:
+í”„ë¡œì íŠ¸ì˜ íŒ¨í‚¤ì§€ì™€ ì˜ì¡´ì„±ì„ ë…ë¦½ì ìœ¼ë¡œ ê´€ë¦¬í•˜ê¸° ìœ„í•´ ê°€ìƒ í™˜ê²½ì„ ì‚¬ìš©í•˜ëŠ” ê²ƒì´ ì¢‹ìŠµë‹ˆë‹¤. ê°€ìƒ í™˜ê²½ì„ ìƒì„±í•˜ê³  í™œì„±í™”í•˜ëŠ” ë°©ë²•ì€ ë‹¤ìŒê³¼ ê°™ìŠµë‹ˆë‹¤:
 
-### °¡»ó È¯°æ »ý¼º ¹× È°¼ºÈ­
+### ê°€ìƒ í™˜ê²½ ìƒì„± ë° í™œì„±í™”
 
-1. **°¡»ó È¯°æ »ý¼º:**
+1. **ê°€ìƒ í™˜ê²½ ìƒì„±:**
 
    ```bash
    python -m venv venv
    ```
 
-2. **°¡»ó È¯°æ È°¼ºÈ­:**
+2. **ê°€ìƒ í™˜ê²½ í™œì„±í™”:**
 
    - **Windows:**
 
@@ -31,10 +31,12 @@
      source venv/bin/activate
      ```
 
-## ÆÐÅ°Áö ¼³Ä¡
+## íŒ¨í‚¤ì§€ ì„¤ì¹˜
 
-°¡»ó È¯°æÀ» È°¼ºÈ­ÇÑ ÈÄ, `requirements.txt` ÆÄÀÏÀ» »ç¿ëÇÏ¿© ÇÊ¿äÇÑ ÆÐÅ°Áö¸¦ ¼³Ä¡ÇÒ ¼ö ÀÖ½À´Ï´Ù. ´ÙÀ½ ¸í·É¾î¸¦ »ç¿ëÇÏ¿© ÆÐÅ°Áö¸¦ ¼³Ä¡ÇÕ´Ï´Ù:
+ê°€ìƒ í™˜ê²½ì„ í™œì„±í™”í•œ í›„, `requirements.txt` íŒŒì¼ì„ ì‚¬ìš©í•˜ì—¬ í•„ìš”í•œ íŒ¨í‚¤ì§€ë¥¼ ì„¤ì¹˜í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤. ë‹¤ìŒ ëª…ë ¹ì–´ë¥¼ ì‚¬ìš©í•˜ì—¬ íŒ¨í‚¤ì§€ë¥¼ ì„¤ì¹˜í•©ë‹ˆë‹¤:
 
 ```bash
 pip install -r requirements.txt
 ```
+
+test
