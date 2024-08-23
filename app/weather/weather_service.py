@@ -1,4 +1,4 @@
-from app.weather.api_client import OpenWeatherApiClient
+from app.weather.weather_api import OpenWeatherApiClient
 
 
 class WeatherService:

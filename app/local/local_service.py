@@ -19,7 +19,7 @@ class LocalService:
 
     def get_coordinates(self, address):
         headers = {
-            "Authorization": f"KakaoAK {self.kakao_api_key}asf"
+            "Authorization": f"KakaoAK {self.kakao_api_key}" #이부분 오타가 있었습니다.
         }
         params = {
             "query": address
