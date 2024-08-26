@@ -3,7 +3,7 @@ import requests
 
 class OpenWeatherApiClient:
     def __init__(self):
-        self.openweather_api_key = os.getenv("OPENWEATHER_API_KEY")
+        self.openweather_api_key = os.getenv("OPEN_WEATHER_API_KEY")
         if not self.openweather_api_key:
             raise ValueError("OPENWEATHER_API_KEY is not set in environment variables")
 
