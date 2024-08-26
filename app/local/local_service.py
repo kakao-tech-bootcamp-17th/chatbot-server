@@ -1,6 +1,7 @@
 import requests
 from flask import current_app
 from app.exception.not_found_exception import NotFoundException
+from .dto.place_response_dto import PlacesResponseDTO
 
 KAKAO_LOCAL_REQUEST_URL = "https://dapi.kakao.com/v2/local/search/keyword.json"
 
@@ -24,7 +25,6 @@ class LocalService:
         params = {
             "query": address
         }
-
     
         response = requests.get(url=KAKAO_LOCAL_REQUEST_URL, headers=headers, params=params)
         response.raise_for_status()
@@ -39,4 +39,27 @@ class LocalService:
         lat = float(result['documents'][0]['y'])
     
         return lat, lon
+    
+    def search_places(self, keyword):
+        headers = {
+            "Authorization": f"KakaoAK {self.kakao_api_key}" #이부분 오타가 있었습니다.
+        }
+        params = {
+            "query": keyword
+        }
+
+        response = requests.get(url=KAKAO_LOCAL_REQUEST_URL, headers=headers, params=params)
+        response.raise_for_status()
+
+        results = response.json()['documents']
+
+        place_response_dtos = []
+        for result in results:
+            place_response_dtos.append(PlacesResponseDTO(result).to_dict())
+
+        return place_response_dtos
+
+        
+        
+
   
