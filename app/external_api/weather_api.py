@@ -7,7 +7,7 @@ class WeatherApi:
     def __init__(self):
         self.api_key = current_app.config.get("OPEN_WEATHER_API_KEY")
         if not self.api_key:
-            raise ValueError("OPENWEATHER_API_KEY is not set in environment variables")
+            raise ValueError("OPEN_WEATHER_API_KEY is not set in environment variables")
 
     def fetch_weather_data(self, lat, lon):
         params = {

@@ -12,7 +12,7 @@ class WeatherService:
     def __init__(self):
         self.api_client = WeatherApi()
 
-    def get_weather(self, lat, lon):
+    def get_weather_info(self, lat, lon):
         result = self.api_client.fetch_weather_data(lat, lon)
 
         if 'weather' not in result:
