@@ -1,4 +1,4 @@
-from app.external_api.weather_api import WeatherApi
+from app.external_api.weather_api import OpenWeatherWeatherApi
 from app.exception.not_found_exception import NotFoundException
 
 class WeatherService:
@@ -10,10 +10,10 @@ class WeatherService:
         return cls._instance
     
     def __init__(self):
-        self.api_client = WeatherApi()
+        self.OpenWeatherApi = OpenWeatherWeatherApi()
 
     def get_weather_info(self, lat, lon):
-        result = self.api_client.fetch_weather_data(lat, lon)
+        result = self.OpenWeatherApi.fetch_weather_data(lat, lon)
 
         if 'weather' not in result:
             raise NotFoundException(f"올바르지 않은 좌표: 위도 {lat}, 경도 {lon}")
