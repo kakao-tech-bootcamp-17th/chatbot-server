@@ -12,7 +12,7 @@ def get_weather():
     if not lat or not lon:
         raise BadRequestException("위도와 경도는 필수 값입니다.")
     
-    weather_info = weather_service.get_weather(lat, lon)
+    weather_info = weather_service.get_weather_info(lat, lon)
     
     return jsonify(weather_info)
 

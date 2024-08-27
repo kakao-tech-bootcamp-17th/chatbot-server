@@ -1,4 +1,4 @@
-from app.external_api.weather_api import OpenWeatherWeatherApi
+from app.external_api.OpenWeatherApi import OpenWeatherApi
 from app.exception.not_found_exception import NotFoundException
 
 class WeatherService:
@@ -10,7 +10,7 @@ class WeatherService:
         return cls._instance
     
     def __init__(self):
-        self.OpenWeatherApi = OpenWeatherWeatherApi()
+        self.OpenWeatherApi = OpenWeatherApi()
 
     def get_weather_info(self, lat, lon):
         result = self.OpenWeatherApi.fetch_weather_data(lat, lon)
