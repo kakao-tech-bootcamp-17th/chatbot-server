@@ -1,5 +1,4 @@
-import requests
-from flask import current_app
+from app.external_api.kakao_local_coordinate_api import KakaoLocalCoorinateApi
 from app.exception.not_found_exception import NotFoundException
 
 KAKAO_LOCAL_REQUEST_URL = "https://dapi.kakao.com/v2/local/search/keyword.json"
@@ -13,25 +12,12 @@ class LocalService:
         return cls._instance
     
     def __init__(self):
-        self.kakao_api_key = current_app.config.get("KAKAO_APP_API_KEY")
-        if not self.kakao_api_key:
-            raise ValueError("KAKAO_APP_API_KEY is not set in environment variables")
+        if not hasattr(self,'KakaoLocalCoordinateApi'):
+            self.KakaoLocalCoordinateApi = KakaoLocalCoorinateApi()
 
-    def get_coordinates(self, address):
-        headers = {
-            "Authorization": f"KakaoAK {self.kakao_api_key}" #이부분 오타가 있었습니다.
-        }
-        params = {
-            "query": address
-        }
+    def get_coordinates_info(self, address):
+        result = self.KakaoLocalCoordinateApi.get_coordinates(address)
 
-    
-        response = requests.get(url=KAKAO_LOCAL_REQUEST_URL, headers=headers, params=params)
-        response.raise_for_status()
-
-        result = response.json()
-
-        print(result)
         if not result['documents']:
             raise NotFoundException(f"{address}는 존재하지 않는 주소지입니다.")
         

@@ -11,6 +11,6 @@ def get_coordinates():
     if not address:
         raise BadRequestException("주소지는 필수 값입니다.")
 
-    lat, lon = local_service.get_coordinates(address)
+    lat, lon = local_service.get_coordinates_info(address)
 
     return jsonify({"latitude": lat, "longitude": lon})

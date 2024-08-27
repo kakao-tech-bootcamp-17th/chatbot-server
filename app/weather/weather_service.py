@@ -14,7 +14,7 @@ class WeatherService:
             self.OpenWeatherApi = OpenWeatherApi()
 
     def get_weather_info(self, lat, lon):
-        result = self.OpenWeatherApi.fetch_weather_data(lat, lon)
+        result = self.OpenWeatherApi.get_weather(lat, lon)
 
         if 'weather' not in result:
             raise NotFoundException(f"올바르지 않은 좌표: 위도 {lat}, 경도 {lon}")

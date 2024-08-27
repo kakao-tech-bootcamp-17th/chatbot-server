@@ -13,15 +13,15 @@ class OpenWeatherApi:
 
     def __init__(self):
         if not hasattr(self,'api_key'):
-            self.api_key = current_app.config.get("OPEN_WEATHER_API_KEY")
-        if not self.api_key:
+            self.open_weather_api_key = current_app.config.get("OPEN_WEATHER_API_KEY")
+        if not self.open_weather_api_key:
             raise ValueError("OPEN_WEATHER_API_KEY is not set in environment variables")
 
-    def fetch_weather_data(self, lat, lon):
+    def get_weather(self, lat, lon):
         params = {
             "lat": lat,
             "lon": lon,
-            "appid": self.api_key,
+            "appid": self.open_weather_api_key,
             "units": "metric"  # 섭씨로 출력
         }
         response = requests.get(url=OPEN_WEATHER_REQUEST_URL, params=params)
