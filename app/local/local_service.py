@@ -10,11 +10,11 @@ class LocalService:
         return cls._instance
     
     def __init__(self):
-        if not hasattr(self,'KakaoLocalCoordinateApi'):
-            self.KakaoLocalCoordinateApi = KakaoLocalApi()
+        if not hasattr(self,'KakaoLocalApi'):
+            self.KakaoLocalApi = KakaoLocalApi()
 
-    def get_coordinates_info(self, address):
-        result = self.KakaoLocalCoordinateApi.get_coordinates(address)
+    def get_coordinates(self, address):
+        result = self.KakaoLocalApi.get_coordinates(address)
 
         if not result['documents']:
             raise NotFoundException(f"{address}는 존재하지 않는 주소지입니다.")
