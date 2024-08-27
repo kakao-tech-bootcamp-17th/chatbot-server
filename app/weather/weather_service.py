@@ -8,14 +8,14 @@ class WeatherService:
         if not cls._instance:
             cls._instance = super(WeatherService, cls).__new__(cls, *args, **kwargs)
         return cls._instance
-    
+
     def __init__(self):
-        self.OpenWeatherApi = OpenWeatherApi()
+        if not hasattr(self, 'api_client'):
+            self.OpenWeatherApi = OpenWeatherApi()
 
     def get_weather_info(self, lat, lon):
         result = self.OpenWeatherApi.fetch_weather_data(lat, lon)
 
         if 'weather' not in result:
             raise NotFoundException(f"올바르지 않은 좌표: 위도 {lat}, 경도 {lon}")
-
         return result
