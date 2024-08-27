@@ -14,5 +14,5 @@ def get_weather():
     
     weather_info = weather_service.get_weather_info(lat, lon)
     
-    return jsonify(weather_info)
+    return jsonify(weather_info) #임시 JSON 반환
 

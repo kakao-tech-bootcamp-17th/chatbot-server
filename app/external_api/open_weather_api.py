@@ -22,7 +22,7 @@ class OpenWeatherApi:
             "lat": lat,
             "lon": lon,
             "appid": self.open_weather_api_key,
-            "units": "metric"  # 섭씨로 출력
+            "units": "metric",  # 섭씨로 출력
         }
         response = requests.get(url=OPEN_WEATHER_REQUEST_URL, params=params)
         response.raise_for_status()

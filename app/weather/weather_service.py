@@ -18,4 +18,10 @@ class WeatherService:
 
         if 'weather' not in result:
             raise NotFoundException(f"올바르지 않은 좌표: 위도 {lat}, 경도 {lon}")
-        return result
+        
+        weather_response = { #온도,날씨,도시명을 딕셔너리로 매핑
+            'temperature': result.get('main', {}).get('temp'),
+            'description': result.get('weather', [{}])[0].get('description'),
+            'city': result.get('name')
+        }
+        return weather_response
