@@ -11,6 +11,4 @@ def geocode():
     if not address:
         raise BadRequestException("주소지는 필수 값입니다.")
 
-    coordinate = local_service.geocode(address)
-
-    return jsonify(coordinate)
+    return local_service.geocode(address)

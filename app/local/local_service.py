@@ -1,3 +1,4 @@
+from flask import jsonify
 from app.external_api.kakao_local_api import KakaoLocalApi
 from app.exception.not_found_exception import NotFoundException
 
@@ -19,10 +20,10 @@ class LocalService:
         if not result['documents']:
             raise NotFoundException(f"{address}는 존재하지 않는 주소지입니다.")
         
-        response_data = { #위치정보를 딕셔너리로 매핑
+        coordinate = { #위치정보를 딕셔너리로 매핑
             "lon": float(result['documents'][0]['x']),
             "lat": float(result['documents'][0]['y'])
         }
     
-        return response_data
+        return jsonify(coordinate)
   
