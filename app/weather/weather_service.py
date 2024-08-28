@@ -14,7 +14,7 @@ class WeatherService:
         if not hasattr(self, 'OpenWeatherApi'):
             self.OpenWeatherApi = OpenWeatherApi()
 
-    def get_weather(self, lat, lon):
+    def get_weather_info(self, lat, lon):
         result = self.OpenWeatherApi.get_weather(lat, lon)
 
         if 'weather' not in result:
