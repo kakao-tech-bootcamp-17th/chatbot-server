@@ -19,7 +19,7 @@ class KakaoLocalApi:
         if not self.kakao_api_key:
             raise ValueError("KAKAO_APP_API_KEY is not set in environment variables")
         
-    def get_coordinate(self, address): #좌표변환
+    def geocode(self, address): #좌표변환
         headers = {
             "Authorization": f"KakaoAK {self.kakao_api_key}"
         }
