@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import request
 from app.weather.weather_service import WeatherService
 from . import weather_bp
 from app.exception.bad_reqeust_exception import BadRequestException
@@ -12,7 +12,5 @@ def get_weather():
     if not lat or not lon:
         raise BadRequestException("위도와 경도는 필수 값입니다.")
     
-    weather_info = weather_service.get_weather_info(lat, lon)
+    return weather_service.get_weather(lat, lon)
     
-    return jsonify(weather_info) #임시 JSON 반환
-

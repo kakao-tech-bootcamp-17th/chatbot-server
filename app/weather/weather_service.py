@@ -1,3 +1,4 @@
+from flask import jsonify
 from app.external_api.open_weather_api import OpenWeatherApi
 from app.exception.not_found_exception import NotFoundException
 
@@ -13,7 +14,7 @@ class WeatherService:
         if not hasattr(self, 'OpenWeatherApi'):
             self.OpenWeatherApi = OpenWeatherApi()
 
-    def get_weather_info(self, lat, lon):
+    def get_weather(self, lat, lon):
         result = self.OpenWeatherApi.get_weather(lat, lon)
 
         if 'weather' not in result:
@@ -24,4 +25,4 @@ class WeatherService:
             'description': result.get('weather', [{}])[0].get('description'),
             'city': result.get('name')
         }
-        return weather_response
+        return jsonify(weather_response)
