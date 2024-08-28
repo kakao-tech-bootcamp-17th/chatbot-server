@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import request
 from app.local.local_service import LocalService
 from . import local_bp
 from app.exception.bad_reqeust_exception import BadRequestException
