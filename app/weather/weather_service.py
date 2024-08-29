@@ -25,4 +25,4 @@ class WeatherService:
             'description': result.get('weather', [{}])[0].get('description'),
             'city': result.get('name')
         }
-        return jsonify(weather)
+        return weather #json형식으로는 읽어들일수가 없음

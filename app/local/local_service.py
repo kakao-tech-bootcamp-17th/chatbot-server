@@ -1,5 +1,6 @@
 from flask import jsonify
 from app.external_api.kakao_local_api import KakaoLocalApi
+from app.weather.weather_service import WeatherService
 from app.exception.not_found_exception import NotFoundException
 
 class LocalService:
@@ -13,6 +14,8 @@ class LocalService:
     def __init__(self):
         if not hasattr(self,'KakaoLocalApi'):
             self.KakaoLocalApi = KakaoLocalApi()
+        if not hasattr(self, 'WeatherService'):
+            self.WeatherService = WeatherService()
 
     def geocode(self, address):
         result = self.KakaoLocalApi.geocode(address)
@@ -25,5 +28,15 @@ class LocalService:
             "lat": float(result['documents'][0]['y'])
         }
     
-        return jsonify(coordinate)
+        return coordinate
+    
+    def get_weather_by_address(self, address): #임시 함수명 네이밍
+        coordinates = self.geocode(address)
+        weather_info = self.WeatherService.get_weather(coordinates["lat"], coordinates["lon"])
+        return {
+            "address": address,
+            "coordinates": coordinates,
+            "weather": weather_info
+        }
+
   
