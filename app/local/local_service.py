@@ -1,5 +1,6 @@
 import requests
-from flask import current_app
+from flask import jsonify
+from app.external_api.kakao_local_api import KakaoLocalApi
 from app.exception.not_found_exception import NotFoundException
 from .dto.place_response_dto import PlacesResponseDTO
 
@@ -14,31 +15,21 @@ class LocalService:
         return cls._instance
     
     def __init__(self):
-        self.kakao_api_key = current_app.config.get("KAKAO_APP_API_KEY")
-        if not self.kakao_api_key:
-            raise ValueError("KAKAO_APP_API_KEY is not set in environment variables")
+        if not hasattr(self,'KakaoLocalApi'):
+            self.KakaoLocalApi = KakaoLocalApi()
 
-    def get_coordinates(self, address):
-        headers = {
-            "Authorization": f"KakaoAK {self.kakao_api_key}" #이부분 오타가 있었습니다.
-        }
-        params = {
-            "query": address
-        }
-    
-        response = requests.get(url=KAKAO_LOCAL_REQUEST_URL, headers=headers, params=params)
-        response.raise_for_status()
+    def geocode(self, address):
+        result = self.KakaoLocalApi.geocode(address)
 
-        result = response.json()
-
-        print(result)
         if not result['documents']:
             raise NotFoundException(f"{address}는 존재하지 않는 주소지입니다.")
         
-        lon = float(result['documents'][0]['x'])
-        lat = float(result['documents'][0]['y'])
+        coordinate = { #위치정보를 딕셔너리로 매핑
+            "lon": float(result['documents'][0]['x']),
+            "lat": float(result['documents'][0]['y'])
+        }
     
-        return lat, lon
+        return jsonify(coordinate)
     
     def search_places(self, keyword):
         headers = {
