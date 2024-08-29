@@ -19,7 +19,5 @@ def search_palces():
     if not keyword:
         raise BadRequestException("키워드 입력은 필수입니다.")
     
-    place_response_dtos = local_service.search_places(keyword)
-
-    return jsonify(place_response_dtos)
+    return local_service.search_places(keyword)
     

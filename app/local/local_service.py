@@ -34,11 +34,18 @@ class LocalService:
     def search_places(self, keyword):
         results = self.kakao_local_api.search_places(keyword)
 
-        place_response_dtos = []
+        places = []
         for result in results:
-            place_response_dtos.append(PlacesResponseDTO(result).to_dict())
+            place = {
+                'place_name': result['place_name'],
+                'phone': result['phone'],
+                'place_url': result['place_url'],
+                'distance': result['distance'],
+            }
+            places.append(place)
 
-        return place_response_dtos
+
+        return jsonify(places)
 
         
         
