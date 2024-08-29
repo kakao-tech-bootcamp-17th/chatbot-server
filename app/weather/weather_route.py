@@ -13,4 +13,10 @@ def get_weather():
         raise BadRequestException("위도와 경도는 필수 값입니다.")
     
     return weather_service.get_weather(lat, lon)
-    
+
+@weather_bp.route("/weather-by-address", methods=['GET']) 
+def get_weather_by_address():
+    address = request.args.get("address")
+    if not address:
+        raise BadRequestException("주소지는 필수 값입니다.")
+    return weather_service.get_weather_by_address(address)
