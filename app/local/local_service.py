@@ -15,11 +15,11 @@ class LocalService:
         return cls._instance
     
     def __init__(self):
-        if not hasattr(self,'KakaoLocalApi'):
-            self.KakaoLocalApi = KakaoLocalApi()
+        if not hasattr(self,'kakao_local_api'):
+            self.kakao_local_api = KakaoLocalApi()
 
     def geocode(self, address):
-        result = self.KakaoLocalApi.geocode(address)
+        result = self.kakao_local_api.geocode(address)
 
         if not result['documents']:
             raise NotFoundException(f"{address}는 존재하지 않는 주소지입니다.")
@@ -32,17 +32,7 @@ class LocalService:
         return jsonify(coordinate)
     
     def search_places(self, keyword):
-        headers = {
-            "Authorization": f"KakaoAK {self.kakao_api_key}" #이부분 오타가 있었습니다.
-        }
-        params = {
-            "query": keyword
-        }
-
-        response = requests.get(url=KAKAO_LOCAL_REQUEST_URL, headers=headers, params=params)
-        response.raise_for_status()
-
-        results = response.json()['documents']
+        results = self.kakao_local_api.search_places(keyword)
 
         place_response_dtos = []
         for result in results:
