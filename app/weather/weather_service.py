@@ -16,8 +16,8 @@ class WeatherService:
         if not hasattr(self, 'LocalService'):
             self.LocalService = LocalService()  # 올바르게 LocalService 초기화
 
-    def get_weather(self, lat, lon):
-        result = self.OpenWeatherApi.get_weather(lat, lon)
+    def get_weather_by_coordinate(self, lat, lon):
+        result = self.OpenWeatherApi.get_weather_by_coordinate(lat, lon)
 
         if 'weather' not in result:
             raise NotFoundException(f"올바르지 않은 좌표: 위도 {lat}, 경도 {lon}")
@@ -34,7 +34,7 @@ class WeatherService:
         coordinates = self.LocalService.geocode(address)
 
         # 좌표를 사용하여 날씨 정보를 얻음
-        weather_info = self.get_weather(coordinates["lat"], coordinates["lon"])
+        weather_info = self.get_weather_by_coordinate(coordinates["lat"], coordinates["lon"])
 
         return {
             "address": address,
