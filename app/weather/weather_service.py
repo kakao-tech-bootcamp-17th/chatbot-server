@@ -12,12 +12,12 @@ class WeatherService:
 
     def __init__(self):
         if not hasattr(self, 'OpenWeatherApi'):
-            self.OpenWeatherApi = OpenWeatherApi()
+            self.open_weather_api = OpenWeatherApi()  #인스턴스변수 스네이크표기법으로 변경
         if not hasattr(self, 'LocalService'):
-            self.LocalService = LocalService()  # 올바르게 LocalService 초기화
+            self.local_service_api = LocalService()  
 
     def get_weather_by_coordinate(self, lat, lon):
-        result = self.OpenWeatherApi.get_weather_by_coordinate(lat, lon)
+        result = self.open_weather_api.get_weather_by_coordinate(lat, lon)
 
         if 'weather' not in result:
             raise NotFoundException(f"올바르지 않은 좌표: 위도 {lat}, 경도 {lon}")
@@ -31,7 +31,7 @@ class WeatherService:
     
     def get_weather_by_address(self, address):
         # LocalService를 사용하여 좌표를 얻음
-        coordinates = self.LocalService.geocode(address)
+        coordinates = self.local_service_api.geocode(address)
 
         # 좌표를 사용하여 날씨 정보를 얻음
         weather_info = self.get_weather_by_coordinate(coordinates["lat"], coordinates["lon"])

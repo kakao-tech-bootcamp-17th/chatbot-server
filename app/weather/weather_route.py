@@ -14,7 +14,7 @@ def get_weather_by_coordinate():
     
     return weather_service.get_weather_by_coordinate(lat, lon)
 
-@weather_bp.route("/weather-by-address", methods=['GET']) 
+@weather_bp.route("/location", methods=['GET'])   # 기존 "/weather-by-address"에서 "/location"으로 수정
 def get_weather_by_address():
     address = request.args.get("address")
     if not address:
