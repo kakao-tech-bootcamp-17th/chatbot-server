@@ -28,7 +28,8 @@ class KakaoLocalApi:
         }
         response = requests.get(url=KAKAO_LOCAL_ADDRESS_URL, headers=headers, params=params)
         response.raise_for_status()    
-        return response.json()
+        
+        return response.json()['documents'][0]
     
     def search_places(self, keyword):
         headers = {

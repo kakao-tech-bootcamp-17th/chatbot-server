@@ -3,6 +3,7 @@ import requests
 from flask import jsonify
 from app.external_api.kakao_local_api import KakaoLocalApi
 from app.exception.not_found_exception import NotFoundException
+from .dto.response.place_coordinate_response_dto import PlaceCoordinateResponseDto
 from .dto.response.place_info_response_dto import PlaceInfoResponseDto
 
 KAKAO_LOCAL_REQUEST_URL = "https://dapi.kakao.com/v2/local/search/keyword.json"
@@ -21,16 +22,12 @@ class LocalService:
 
     def geocode(self, address):
         result = self.kakao_local_api.geocode(address)
+        print(result)
 
-        if not result['documents']:
+        if not result:
             raise NotFoundException(f"{address}는 존재하지 않는 주소지입니다.")
-        
-        coordinate = { #위치정보를 딕셔너리로 매핑
-            "lon": float(result['documents'][0]['x']),
-            "lat": float(result['documents'][0]['y'])
-        }
     
-        return coordinate
+        return PlaceCoordinateResponseDto.from_data(result)
     
     def search_places(self, keyword) -> List[PlaceInfoResponseDto]:
         results = self.kakao_local_api.search_places(keyword)
