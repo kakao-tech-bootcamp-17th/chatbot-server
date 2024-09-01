@@ -22,7 +22,6 @@ class LocalService:
 
     def geocode(self, address):
         result = self.kakao_local_api.geocode(address)
-        print(result)
 
         if not result:
             raise NotFoundException(f"{address}는 존재하지 않는 주소지입니다.")
