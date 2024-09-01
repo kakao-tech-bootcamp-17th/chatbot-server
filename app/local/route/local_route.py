@@ -1,6 +1,6 @@
 from flask import request, jsonify
-from app.local.local_service import LocalService
-from . import local_bp
+from app.local.service.local_service import LocalService
+from .. import local_bp
 from app.exception.bad_reqeust_exception import BadRequestException
 
 local_service = LocalService()

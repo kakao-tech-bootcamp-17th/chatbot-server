@@ -3,8 +3,8 @@ import requests
 from flask import jsonify
 from app.external_api.kakao_local_api import KakaoLocalApi
 from app.exception.not_found_exception import NotFoundException
-from .dto.response.place_coordinate_response_dto import PlaceCoordinateResponseDto
-from .dto.response.place_info_response_dto import PlaceInfoResponseDto
+from ..dto.response.place_coordinate_response_dto import PlaceCoordinateResponseDto
+from ..dto.response.place_info_response_dto import PlaceInfoResponseDto
 
 KAKAO_LOCAL_REQUEST_URL = "https://dapi.kakao.com/v2/local/search/keyword.json"
 
