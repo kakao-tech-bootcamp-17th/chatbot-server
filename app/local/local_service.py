@@ -30,7 +30,7 @@ class LocalService:
             "lat": float(result['documents'][0]['y'])
         }
     
-        return jsonify(coordinate)
+        return coordinate
     
     def search_places(self, keyword) -> List[PlaceResponseDto]:
         results = self.kakao_local_api.search_places(keyword)
@@ -41,8 +41,7 @@ class LocalService:
             dtos.append(dto)
 
 
-        return jsonify(dtos)
-
+        return dtos
         
         
 

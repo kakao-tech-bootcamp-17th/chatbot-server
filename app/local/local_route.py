@@ -11,7 +11,9 @@ def geocode():
     if not address:
         raise BadRequestException("주소지는 필수 값입니다.")
 
-    return local_service.geocode(address)
+    response = local_service.geocode(address)
+
+    return jsonify(response)
 
 @local_bp.route("/places", methods=['GET'])
 def search_places():
@@ -19,5 +21,7 @@ def search_places():
     if not keyword:
         raise BadRequestException("키워드 입력은 필수입니다.")
     
-    return local_service.search_places(keyword)
+    response = local_service.search_places(keyword)
+
+    return jsonify(response)
     
