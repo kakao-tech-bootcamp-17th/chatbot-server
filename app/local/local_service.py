@@ -3,7 +3,7 @@ import requests
 from flask import jsonify
 from app.external_api.kakao_local_api import KakaoLocalApi
 from app.exception.not_found_exception import NotFoundException
-from .dto.place_response_dto import PlaceResponseDto
+from .dto.response.place_info_response_dto import PlaceInfoResponseDto
 
 KAKAO_LOCAL_REQUEST_URL = "https://dapi.kakao.com/v2/local/search/keyword.json"
 
@@ -32,16 +32,10 @@ class LocalService:
     
         return coordinate
     
-    def search_places(self, keyword) -> List[PlaceResponseDto]:
+    def search_places(self, keyword) -> List[PlaceInfoResponseDto]:
         results = self.kakao_local_api.search_places(keyword)
 
-        dtos = []
-        for result in results:
-            dto = PlaceResponseDto.from_data(result)
-            dtos.append(dto)
-
-
-        return dtos
+        return [PlaceInfoResponseDto.from_data(result) for result in results]
         
         
 

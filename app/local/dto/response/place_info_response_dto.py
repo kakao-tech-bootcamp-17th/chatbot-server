@@ -2,14 +2,14 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 @dataclass(frozen=True)
-class PlaceResponseDto:
+class PlaceInfoResponseDto:
     place_name: str
     phone: str
     place_url: str
     distance: float
 
     @classmethod
-    def from_data(cls, data: dict) -> PlaceResponseDto:
+    def from_data(cls, data: dict) -> PlaceInfoResponseDto:
         return cls(
             place_name=data['place_name'],
             phone=data['phone'],
