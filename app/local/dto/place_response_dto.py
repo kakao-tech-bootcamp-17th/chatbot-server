@@ -1,16 +1,18 @@
-class PlacesResponseDTO:
-    def __init__(self, ext_response):
-        self._id = ext_response['id']
-        self._place_name = ext_response['place_name']
-        self._phone = ext_response['phone']
-        self._place_url = ext_response['place_url']
-        self._distance = ext_response['distance']
+from __future__ import annotations
+from dataclasses import dataclass
 
-    def to_dict(self):
-        return {
-            'id': self._id,
-            'place_name': self._place_name,
-            'phone': self._phone,
-            'place_url': self._place_url,
-            'distance': self._distance
-        }
+@dataclass(frozen=True)
+class PlaceResponseDto:
+    place_name: str
+    phone: str
+    place_url: str
+    distance: float
+
+    @classmethod
+    def from_data(cls, data: dict) -> PlaceResponseDto:
+        return cls(
+            place_name=data['place_name'],
+            phone=data['phone'],
+            place_url=data['place_url'],
+            distance=data['distance']
+        )
