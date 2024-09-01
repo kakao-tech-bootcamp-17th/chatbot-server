@@ -14,7 +14,7 @@ def geocode():
     return local_service.geocode(address)
 
 @local_bp.route("/places", methods=['GET'])
-def search_palces():
+def search_places():
     keyword = request.args.get("keyword")
     if not keyword:
         raise BadRequestException("키워드 입력은 필수입니다.")
