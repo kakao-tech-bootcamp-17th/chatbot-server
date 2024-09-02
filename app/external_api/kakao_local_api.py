@@ -28,8 +28,6 @@ class KakaoLocalApi:
         }
         response = requests.get(url=KAKAO_LOCAL_KEYWORD_URL, headers=headers, params=params)
         response.raise_for_status()    
-
-        print(response.json())
         
         return response.json()['documents'][0]
     
