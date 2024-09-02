@@ -7,11 +7,11 @@ local_service = LocalService()
 
 @local_bp.route("/", methods=['GET'])
 def geocode():
-    address = request.args.get("address")
-    if not address:
-        raise BadRequestException("주소지는 필수 값입니다.")
+    location = request.args.get("location")
+    if not location:
+        raise BadRequestException("장소명은 필수 값입니다.")
 
-    response = local_service.geocode(address)
+    response = local_service.geocode(location)
 
     return jsonify(response)
 

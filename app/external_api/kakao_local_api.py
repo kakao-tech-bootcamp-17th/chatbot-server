@@ -2,7 +2,6 @@ import requests
 from flask import current_app
 from app.exception.not_found_exception import NotFoundException
 
-KAKAO_LOCAL_ADDRESS_URL = "https://dapi.kakao.com/v2/local/search/address.json" #좌표변환 URL
 KAKAO_LOCAL_KEYWORD_URL = "https://dapi.kakao.com/v2/local/search/keyword.json" #키워드검색 URL
 
 class KakaoLocalApi:
@@ -19,15 +18,18 @@ class KakaoLocalApi:
         if not self.kakao_api_key:
             raise ValueError("KAKAO_APP_API_KEY is not set in environment variables")
         
-    def geocode(self, address): #좌표변환
+    def geocode(self, location): #좌표변환
         headers = {
             "Authorization": f"KakaoAK {self.kakao_api_key}"
         }
         params = {
-            "query": address
+            "query": location,
+            "size": 1,
         }
-        response = requests.get(url=KAKAO_LOCAL_ADDRESS_URL, headers=headers, params=params)
+        response = requests.get(url=KAKAO_LOCAL_KEYWORD_URL, headers=headers, params=params)
         response.raise_for_status()    
+
+        print(response.json())
         
         return response.json()['documents'][0]
     
@@ -37,7 +39,7 @@ class KakaoLocalApi:
         }
 
         params = {
-            "query": keyword
+            "query": keyword,
         }
 
         response = requests.get(url=KAKAO_LOCAL_KEYWORD_URL, headers=headers, params=params)
