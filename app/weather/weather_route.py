@@ -5,7 +5,7 @@ from app.exception.bad_reqeust_exception import BadRequestException
 
 weather_service = WeatherService()
 
-@weather_bp.route("/", methods=['GET'])
+@weather_bp.route("/coordinate", methods=['GET']) #임시로 사용할 것 #TODO:추후 제거할것
 def get_weather_by_coordinate():
     lat = request.args.get("lat")
     lon = request.args.get("lon")
@@ -14,7 +14,7 @@ def get_weather_by_coordinate():
     
     return weather_service.get_weather_by_coordinate(lat, lon)
 
-@weather_bp.route("/location", methods=['GET'])   # 기존 "/weather-by-address"에서 "/location"으로 수정
+@weather_bp.route("/", methods=['GET'])   #일반적으로 사용될 것
 def get_weather_by_address():
     address = request.args.get("address")
     if not address:
