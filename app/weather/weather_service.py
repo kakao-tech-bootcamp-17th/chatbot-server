@@ -1,5 +1,5 @@
 from app.external_api.open_weather_api import OpenWeatherApi
-from app.local.local_service import LocalService
+from app.local.service.local_service import LocalService
 from app.exception.not_found_exception import NotFoundException
 
 class WeatherService:
