@@ -12,3 +12,5 @@ def geocode():
         raise BadRequestException("주소지는 필수 값입니다.")
 
     return local_service.geocode(address)
+
+

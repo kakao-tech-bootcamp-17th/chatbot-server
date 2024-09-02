@@ -1,4 +1,3 @@
-from flask import jsonify
 from app.external_api.kakao_local_api import KakaoLocalApi
 from app.exception.not_found_exception import NotFoundException
 
@@ -25,5 +24,6 @@ class LocalService:
             "lat": float(result['documents'][0]['y'])
         }
     
-        return jsonify(coordinate)
+        return coordinate
+
   
