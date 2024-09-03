@@ -30,11 +30,11 @@ class WeatherService:
     
     def get_weather_by_address(self, address: str) -> WeatherInfoByAddressDto:
         # LocalService를 사용하여 좌표 정보를 가져옴
-        coordinates_dto = self.local_service_api.geocode(address)
-
+        coordinate = self.local_service_api.geocode(address)
+        lat = coordinate.lat
+        lon = coordinate.lon
         # 날씨 정보 생성
-        weather_info = self.get_weather_by_coordinate(coordinates_dto.lat, coordinates_dto.lon)
+        weather_info = self.get_weather_by_coordinate(lat,lon)
         
         # WeatherInfoByAddressDto 생성 및 반환
-        result = WeatherInfoByAddressDto(address,coordinates_dto,weather_info)
-        return result        
+        return WeatherInfoByAddressDto(address,coordinate,weather_info)      
