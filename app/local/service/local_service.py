@@ -3,7 +3,7 @@ import requests
 from flask import jsonify
 from app.external_api.kakao_local_api import KakaoLocalApi
 from app.exception.not_found_exception import NotFoundException
-from ..dto.response.place_coordinate_response_dto import PlaceCoordinateResponseDto
+from ..dto.response.place_coordinate_response_dto import ExtPlaceCoordinateResponseDto
 from ..dto.response.place_info_response_dto import PlaceInfoResponseDto
 
 class LocalService:
@@ -24,7 +24,7 @@ class LocalService:
         if not result:
             raise NotFoundException(f"{location}는 존재하지 않는 장소입니다.")
     
-        return PlaceCoordinateResponseDto.from_data(result)
+        return {'lon': result['x'], 'lat': result['y']}
     
     def search_places(self, keyword) -> List[PlaceInfoResponseDto]:
         results = self.kakao_local_api.search_places(keyword)

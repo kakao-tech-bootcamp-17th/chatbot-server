@@ -31,7 +31,7 @@ class WeatherService:
         coordinate = self.local_service_api.geocode(address)
 
         # 날씨 정보 생성
-        result = self.fetch_weather(lat=coordinate.lat, lon=coordinate.lon)
+        result = self.fetch_weather(lat=coordinate['lat'], lon=coordinate['lon'])
     
         # WeatherInfoByAddressDto.from_data()를 사용하여 객체 생성
         return WeatherInfoResponseDto.from_data(address, result)
