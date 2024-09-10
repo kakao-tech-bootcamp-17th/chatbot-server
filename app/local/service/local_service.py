@@ -3,7 +3,6 @@ import requests
 from flask import jsonify
 from app.external_api.kakao_local_api import KakaoLocalApi
 from app.exception.not_found_exception import NotFoundException
-from ..dto.response.place_coordinate_response_dto import ExtPlaceCoordinateResponseDto
 from ..dto.response.place_info_response_dto import PlaceInfoResponseDto
 
 class LocalService:
