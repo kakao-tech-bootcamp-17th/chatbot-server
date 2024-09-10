@@ -22,7 +22,7 @@ class TrafficService:
 
         result = self.naver_directions_api.fetch_directions(start_pos, goal_pos)
 
-        summary = result.json()['route']['traoptimal'][0]['summary']
+        summary = result['route']['traoptimal'][0]['summary']
 
         return TrafficInfoResponseDto.from_data(summary, start_location, goal_location)
 

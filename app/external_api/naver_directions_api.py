@@ -48,5 +48,5 @@ class NaverDirectionsApi:
 
         response = requests.get(url=REQUEST_URL, headers=headers, params=params)
 
-        return response
+        return response.json()
     
