@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request, current_app
 from openai import OpenAI
 from . import gpt_bp
 import json
+from datetime import datetime
 from app.weather.service.weather_service import WeatherService
 
 # 채팅 모델 컨텍스트
@@ -88,4 +89,11 @@ def chat_response():
             ]
         }
     }
+    print("테스트용 확인 TimeSleep ------------------------")
+    time.sleep(2)
+    now = datetime.now().strftime('%Y.%m.%d - %H:%M:%S')
+    txtFileName = datetime.now().strftime('%Y%m%d%H%M%S')
+    log = f"{now} -- \nresponse : {response}"
+    with open(f"../log/{txtFileName}.txt", 'w') as file :
+        file.write(log)
     return jsonify(response)
