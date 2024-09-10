@@ -17,7 +17,7 @@ class OpenWeatherApi:
         if not self.open_weather_api_key:
             raise ValueError("OPEN_WEATHER_API_KEY is not set in environment variables")
 
-    def get_weather_by_coordinate(self, lat, lon):
+    def fetch_weather(self, lat, lon):
         params = {
             "lat": lat,
             "lon": lon,
