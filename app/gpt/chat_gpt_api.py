@@ -5,7 +5,7 @@ import json
 from app.weather.service.weather_service import WeatherService
 
 # Debugging Package
-import time
+# import time
 import os
 from datetime import datetime
 
@@ -100,8 +100,8 @@ def chat_response():
     return jsonify(response)
 
 def writeLog_debug(response) : 
-    print("테스트용 확인 TimeSleep ------------------------")
-    time.sleep(2)
+    # print("테스트용 확인 TimeSleep ------------------------")
+    # time.sleep(2)
     now = datetime.now().strftime('%Y.%m.%d - %H:%M:%S')
     txtFileName = datetime.now().strftime('%Y%m%d%H%M%S')
     log = f"{now} -- \nresponse : {response}"
