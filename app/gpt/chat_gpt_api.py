@@ -9,7 +9,6 @@ CHAT_MODEL_CONTEXT = ''
 # OpenAI API 클라이언트 설정
 client = OpenAI(api_key=current_app.config.get("OPEN_AI_API_KEY"))
 
-
 # API 엔드포인트
 @gpt_bp.route('/', methods=['POST'])
 def chat_response():
