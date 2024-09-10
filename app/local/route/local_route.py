@@ -25,3 +25,12 @@ def search_places():
 
     return jsonify(response)
     
+@local_bp.route("/restaurants", methods=['GET'])
+def search_restaurants():
+    keyword = request.args.get("keyword")
+    if not keyword:
+        raise BadRequestException("키워드 입력은 필수입니다.")
+    
+    response = local_service.search_restaurants(keyword)
+
+    return jsonify(response)
