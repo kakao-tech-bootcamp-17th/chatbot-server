@@ -31,6 +31,9 @@ class LocalService:
 
         return [PlaceInfoResponseDto.from_data(result) for result in results]
         
-        
+    def search_restaurants(self, keyword) -> List[PlaceInfoResponseDto]:
+        results = self.kakao_local_api.search_restaurants(keyword)
+
+        return [PlaceInfoResponseDto.from_data(result) for result in results]
 
   

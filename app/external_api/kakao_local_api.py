@@ -44,3 +44,18 @@ class KakaoLocalApi:
         response.raise_for_status()
 
         return response.json()['documents']
+    
+    def search_restaurants(self, keyword):
+        headers = {
+            "Authorization": f"KakaoAK {self.kakao_api_key}"
+        }
+
+        params = {
+            "query": keyword,
+            "category_group_code": "FD6"
+        }
+
+        response = requests.get(url=KAKAO_LOCAL_KEYWORD_URL, headers=headers, params=params)
+        response.raise_for_status()
+
+        return response.json()['documents']
