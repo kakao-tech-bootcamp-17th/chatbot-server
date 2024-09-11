@@ -3,6 +3,7 @@ from openai import OpenAI
 from . import gpt_bp
 import json
 from app.weather.service.weather_service import WeatherService
+from app.traffic.service.traffic_service import TrafficService
 
 # Debugging Package
 # import time
@@ -45,59 +46,107 @@ def chat_response():
     )
     pre_response_message = pre_completion.choices[0].message
     print(pre_response_message)
-
+ 
     pre_response_data = json.loads(pre_response_message.content)
     category = pre_response_data.get("카테고리")
-    city = pre_response_data.get("지역명")
-
-    weather_service = WeatherService()
-    weather_info = weather_service.get_weather_by_address(city)
-
-    temperature = weather_info.weather.temperature
-    description = weather_info.weather.description
-    feels_like = weather_info.weather.feels_like
-    humidity = weather_info.weather.humidity
-    city = weather_info.weather.city
-
-    weather_prompt = f'''
-    지역 : {city}  
-    기온 : {temperature} 
-    체감온도 : {feels_like}
-    습도 : {humidity}
-    날씨 : {description}
-
-    위의 정보를 이용해서
-    {utterance}에 대한 대답을 해줘
-    '''
     
-    print(weather_prompt)
-    
-    messageList = [{"role": "system", "content": weather_prompt}]
-    dicMessage = {"role": "user", "content": utterance}
-    messageList.append(dicMessage)
+    # 교통 프롬프트 후처리 
+    if category == "교통" :
+        
+        start = pre_response_data.get("출발지")
+        goal = pre_response_data.get("도착지")
 
-    post_completion = client.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=messageList
-    )
-    post_response_message = post_completion.choices[0].message
-    
-    response = {
-        "version": "2.0",
-        "template": {
-            "outputs": [
-                {
-                    "simpleText": {
-                        "text": f"{post_response_message.content}"
+        traffic_service = TrafficService()
+        traffic_info = traffic_service.find_direction(start, goal)
+
+        traffic_prompt = f'''
+        {traffic_info}로부터 '거리', '소요시간', '유류비', '택시비', '톨비' 정보를 찾아
+        {utterance}에 대해 뉴스 아나운서처럼 대답하시오.
+        '''
+        
+        print(traffic_prompt)
+        
+        messageList = [{"role": "system", "content": traffic_prompt}]
+        dicMessage = {"role": "user", "content": utterance}
+        messageList.append(dicMessage)
+
+        post_completion = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=messageList
+        )
+        post_response_message = post_completion.choices[0].message
+        
+        response = {
+            "version": "2.0",
+            "template": {
+                "outputs": [
+                    {
+                        "simpleText": {
+                            "text": f"{post_response_message.content}"
+                        }
                     }
-                }
-            ]
+                ]
+            }
         }
-    }
 
-    writeLog_debug(response)
+        writeLog_debug(response)
 
-    return jsonify(response)
+        return jsonify(response)
+
+    # 날씨 프롬프트 후처리
+    if category == "날씨"
+        category = pre_response_data.get("카테고리")
+        city = pre_response_data.get("지역명")
+
+        weather_service = WeatherService()
+        weather_info = weather_service.get_weather_by_address(city)
+
+        temperature = weather_info.weather.temperature
+        description = weather_info.weather.description
+        feels_like = weather_info.weather.feels_like
+        humidity = weather_info.weather.humidity
+        city = weather_info.weather.city
+
+        weather_prompt = f'''
+        지역 : {city}  
+        기온 : {temperature} 
+        체감온도 : {feels_like}
+        습도 : {humidity}
+        날씨 : {description}
+
+        위의 정보를 이용해서
+        {utterance}에 대한 대답을 해줘
+        '''
+        
+        print(weather_prompt)
+        
+        messageList = [{"role": "system", "content": weather_prompt}]
+        dicMessage = {"role": "user", "content": utterance}
+        messageList.append(dicMessage)
+
+        post_completion = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=messageList
+        )
+        post_response_message = post_completion.choices[0].message
+        
+        response = {
+            "version": "2.0",
+            "template": {
+                "outputs": [
+                    {
+                        "simpleText": {
+                            "text": f"{post_response_message.content}"
+                        }
+                    }
+                ]
+            }
+        }
+
+        writeLog_debug(response)
+
+        return jsonify(response)
+
 
 def writeLog_debug(response) : 
     # print("테스트용 확인 TimeSleep ------------------------")
