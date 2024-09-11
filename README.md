@@ -38,4 +38,4 @@
 ```bash
 pip install -r requirements.txt
 ```
-테스트1
+테스트1 제발
