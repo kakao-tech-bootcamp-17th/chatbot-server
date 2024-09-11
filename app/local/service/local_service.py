@@ -18,20 +18,22 @@ class LocalService:
             self.kakao_local_api = KakaoLocalApi()
 
     def geocode(self, location):
-        result = self.kakao_local_api.geocode(location)
+        result = self.kakao_local_api.fetch_kakao_local(location)
 
         if not result:
             raise NotFoundException(f"{location}는 존재하지 않는 장소입니다.")
     
         return {'lon': result['x'], 'lat': result['y']}
     
-    def search_places(self, keyword) -> List[PlaceInfoResponseDto]:
-        results = self.kakao_local_api.search_places(keyword)
+    def search_places(self, location, keyword) -> List[PlaceInfoResponseDto]:
+        coordinate = self.geocode(location)
+        results = self.kakao_local_api.search_places(keyword, x = coordinate['lon'], y = coordinate['lat'])
 
         return [PlaceInfoResponseDto.from_data(result) for result in results]
         
-    def search_restaurants(self, keyword) -> List[PlaceInfoResponseDto]:
-        results = self.kakao_local_api.search_restaurants(keyword)
+    def search_restaurants(self, location, keyword) -> List[PlaceInfoResponseDto]:
+        coordinate = self.geocode(location)
+        results = self.kakao_local_api.search_restaurants(keyword, x = coordinate['lon'], y = coordinate['lat'])    
 
         return [PlaceInfoResponseDto.from_data(result) for result in results]
 

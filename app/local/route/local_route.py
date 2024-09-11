@@ -8,19 +8,21 @@ local_service = LocalService()
 @local_bp.route("/places", methods=['GET'])
 def search_places():
     keyword = request.args.get("keyword")
+    location = request.args.get("location")
     if not keyword:
         raise BadRequestException("키워드 입력은 필수입니다.")
     
-    response = local_service.search_places(keyword)
+    response = local_service.search_places(location, keyword)
 
     return jsonify(response)
     
 @local_bp.route("/restaurants", methods=['GET'])
 def search_restaurants():
     keyword = request.args.get("keyword")
+    location = request.args.get("location")
     if not keyword:
         raise BadRequestException("키워드 입력은 필수입니다.")
     
-    response = local_service.search_restaurants(keyword)
+    response = local_service.search_restaurants(location, keyword)
 
     return jsonify(response)

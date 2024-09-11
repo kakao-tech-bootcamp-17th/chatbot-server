@@ -18,7 +18,7 @@ class KakaoLocalApi:
         if not self.kakao_api_key:
             raise ValueError("KAKAO_APP_API_KEY is not set in environment variables")
         
-    def geocode(self, location): #좌표변환
+    def fetch_kakao_local(self, location): #좌표변환
         headers = {
             "Authorization": f"KakaoAK {self.kakao_api_key}"
         }
@@ -31,13 +31,15 @@ class KakaoLocalApi:
         
         return response.json()['documents'][0]
     
-    def search_places(self, keyword):
+    def search_places(self, keyword, x, y):
         headers = {
             "Authorization": f"KakaoAK {self.kakao_api_key}"
         }
 
         params = {
             "query": keyword,
+            "x": x,
+            "y": y
         }
 
         response = requests.get(url=KAKAO_LOCAL_KEYWORD_URL, headers=headers, params=params)
@@ -45,14 +47,16 @@ class KakaoLocalApi:
 
         return response.json()['documents']
     
-    def search_restaurants(self, keyword):
+    def search_restaurants(self, keyword, x="", y=""):
         headers = {
             "Authorization": f"KakaoAK {self.kakao_api_key}"
         }
 
         params = {
             "query": keyword,
-            "category_group_code": "FD6"
+            "category_group_code": "FD6",
+            "x": x,
+            "y": y
         }
 
         response = requests.get(url=KAKAO_LOCAL_KEYWORD_URL, headers=headers, params=params)
