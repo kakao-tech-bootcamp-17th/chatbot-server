@@ -3,6 +3,8 @@ from openai import OpenAI
 from . import gpt_bp
 import json
 from app.weather.service.weather_service import WeatherService
+from app.local.service.local_service import LocalService
+from app.local.dto.response.place_info_response_dto import PlaceInfoResponseDto
 
 # 채팅 모델 컨텍스트
 CHAT_MODEL_CONTEXT = '''
@@ -44,27 +46,48 @@ def chat_response():
     category = pre_response_data.get("카테고리")
     city = pre_response_data.get("지역명")
 
-    weather_service = WeatherService()
-    weather_info = weather_service.get_weather_by_address(city)
+    if category == "날씨" : 
+        weather_service = WeatherService()
+        weather_info = weather_service.get_weather_by_address(city)
 
-    temperature = weather_info.weather.temperature
-    description = weather_info.weather.description
-    feels_like = weather_info.weather.feels_like
-    humidity = weather_info.weather.humidity
-    city = weather_info.weather.city
+        temperature = weather_info.weather.temperature
+        description = weather_info.weather.description
+        feels_like = weather_info.weather.feels_like
+        humidity = weather_info.weather.humidity
+        city = weather_info.weather.city
 
-    weather_prompt = f'''
-    지역 : {city}  
-    기온 : {temperature} 
-    체감온도 : {feels_like}
-    습도 : {humidity}
-    날씨 : {description}
+        weather_prompt = f'''
+        {weather_info}
 
-    위의 정보를 이용해서
-    {utterance}에 대한 대답을 해줘
+        위의 정보들 중에서 적당한 정보들을 이용해서
+        {utterance} 에 대한 대답을 해줘
+        수치들은 정수로 표현하고 아나운서들이 말하듯이 매끄럽게 말해줘
+        '''
+
+        print(weather_prompt)
+
     '''
-    
-    print(weather_prompt)
+    if category == "맛집" :
+        map_service = LocalService()
+        map_info = map_service.search_places(city)
+
+        place = map_info.PlaceInfoResponseDto.place_name
+        distance = map_info.PlaceInfoResponseDto.distance
+
+        print(f"장소명 : {place}")
+
+        map_prompt = f
+        장소명 : {place}
+        거리 : {distance}
+
+
+
+
+        
+
+    if category == "교통" :
+
+'''
     
     messageList = [{"role": "system", "content": weather_prompt}]
     dicMessage = {"role": "user", "content": utterance}
@@ -76,11 +99,13 @@ def chat_response():
     )
     post_response_message = post_completion.choices[0].message
     
+    print(post_response_message.content)
+
     response = {
         "version": "2.0",
         "template": {
             "outputs": [
-                {
+                { 
                     "simpleText": {
                         "text": f"{post_response_message.content}"
                     }
